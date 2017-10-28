@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.persistence.UserMapper">
+    <resultMap id="BaseResultMap" type="com.spring.domain.model.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="idCard" jdbcType="VARCHAR" property="idCard"/>
+        <result column="balance" jdbcType="DECIMAL" property="balance"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="leastTime" jdbcType="TIMESTAMP" property="leastTime"/>
+        <result column="status" javaType="INTEGER" property="status" typeHandler="com.spring.domain.type.handler.UserStatusTypeHandler"/>
+    </resultMap>
+    <sql id="base_column">
+        id,user_name,password,idCard,balance,createTime,leastTime,status
+    </sql>
+    <insert id="addUser" parameterType="com.spring.domain.model.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_user(user_name,password,idCard,balance,createTime,leastTime)
+        VALUE (
+        #{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{idCard,jdbcType=VARCHAR},
+        #{balance,jdbcType=DECIMAL},#{createTime,jdbcType=TIMESTAMP},#{leastTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="base_column" />
+        from t_user
+        where id=#{userId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="base_column"/>
+        from t_user
+        where user_name=#{userName,jdbcType=VARCHAR}
+    </select>
+    
+    <update id="consumeBalance">
+        update t_user
+        set balance=balance-#{amount,jdbcType=DOUBLE}
+        where id=#{usreId,jdbcType=INTEGER} AND balance>0 and (balance-#{amount}>0)
+    </update>
+
+    <update id="updateBalance">
+        update t_user
+        set balance=balance+#{amount,jdbcType=DOUBLE}
+        where id=#{userId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateUser">
+        update t_user
+        set
+        leastTime=now()
+        <if test="userName!=null and userName!=''">
+            ,user_name=#{userName,jdbcType=VARCHAR}
+        </if>
+        <if test="idCard!=null and idCard!=''">
+            ,idCard=#{idCard,jdbcType=VARCHAR}
+        </if>
+        <if test="password!=null and password!=''">
+            ,password=#{password,jdbcType=VARCHAR}
+        </if>
+        where id=#{userId,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="deleteUserByUserId">
+        delete from t_user
+        where id=#{userId,jdbcType=INTEGER}
+    </delete>
+
+    <select id="findUser" resultMap="BaseResultMap">
+        select <include refid="base_column" />
+        from t_user
+        <where>
+            <if test="startDate!=null and endDate!=null">
+                createTime &gt;=to_date(#{startDate},'yyyy-mm-dd hh24:mi:ss')
+                and createTime &lt;=to_date(#{endDate},'yyyy-mm-dd hh24:mi:ss'})
+            </if>
+            <if test="status!=null">
+                and status=#{status,jdbcType=INTEGER,typeHandler=com.spring.domain.type.handler.UserStatusTypeHandler}
+            </if>
+            limit #{startIndex} , #{endIndex}
+        </where>
+    </select>
+</mapper>

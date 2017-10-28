@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.persistence.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.spring.domain.model.Product">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+    </resultMap>
+    <sql id="base_column">
+        id,create_time,update_time,delete_time,name,stock,price
+    </sql>
+    <insert id="addProduct" parameterType="com.spring.domain.model.Product">
+        INSERT INTO t_product(create_time,update_time,delete_time,name,stock,price)
+        VALUE (
+        #{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{deleteTime,jdbcType=TIMESTAMP},
+        #{name,jdbcType=VARCHAR},#{stock,jdbcType=INTEGER},#{price,jdbcType=DECIMAL}
+        )
+    </insert>
+
+    <select id="getProductById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="base_column"/>
+        from t_product
+        where id=#{productId,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateProductStock">
+        update t_product
+        set stock=stock-#{num,jdbcType=INTEGER}
+        where id=#{productId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateProduct">
+        update t_product
+        set update_time=now()
+        <if test="name!=null and name!=''">
+            ,name=#{productName,jdbcType=VARCHAR}
+        </if>
+        <if test="stock!=null and stock>-1">
+            ,stock=#{stock,jdbcType=INTEGER}
+        </if>
+        <if test="price!=null and product>-1">
+            ,price=#{price,jdbcType=DECIMAL}
+        </if>
+        where id=#{productId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteProductByProductId">
+        delete from t_product
+        where id=#{productId,jdbcType=INTEGER}
+    </delete>
+</mapper>

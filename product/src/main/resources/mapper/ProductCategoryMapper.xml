@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.persistence.ProductCategoryMapper">
+    <resultMap id="baseMap" type="com.spring.domain.model.ProductCategory">
+        <result property="id" column="id" jdbcType="INTEGER" />
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="sortOrder" column="sortOrder" jdbcType="INTEGER"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER" typeHandler="com.spring.domain.type.handler.ProductCategoryStatusTypeHandler"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        id,name,sort_order sortOrder,create_time createTime,update_time updateTime,status
+    </sql>
+
+    <select id="listProductCategory" resultMap="baseMap">
+        select <include refid="baseColumn"/>
+        from t_product_category
+        <where>
+            <if test="status!=null">
+                status=#{status,jdbcType=INTEGER,typeHandler=com.spring.domain.type.handler.ProductCategoryStatusTypeHandler}
+            </if>
+            <if test="sortOrderStart!=null and sortOrderEnd!=null and sortOrderStart &lt;=sortOrderEnd">
+                and sort_order >=#{sortOrderStart,jdbcType=INTEGER}
+                and sort_order &lt;=#{sortOrderEnd,jdbcType=INTEGER}
+            </if>
+        </where>
+        <if test="startIndex>0 and pageSize>0">
+            limit #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getProductCategoryCount" resultType="java.lang.Integer">
+        select count(*)
+        from t_product_category
+        <where>
+            <if test="status!=null">
+                status=#{status,jdbcType=INTEGER,typeHandler=com.spring.domain.type.handler.ProductCategoryStatusTypeHandler}
+            </if>
+            <if test="sortOrderStart!=null and sortOrderEnd!=null and sortOrderStart &lt;=sortOrderEnd">
+                and sort_order >=#{sortOrderStart,jdbcType=INTEGER}
+                and sort_order &lt;=#{sortOrderEnd,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateProductCategory">
+        update t_product_category
+        set  update_time=now()
+        <if test="name!=null and name!=''">
+            ,name=#{name,jdbcType=VARCHAR}
+        </if>
+        <if test="sortOrder!=null">
+            ,sort_order=#{sortOrder,jdbcType=INTEGER}
+        </if>
+        <if test="status!=null">
+            ,status=#{status,jdbcType=INTEGER,typeHandler=com.spring.domain.type.handler.ProductCategoryStatusTypeHandler}
+        </if>
+        where id=#{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getProductCategoryById" resultMap="baseMap">
+        select <include refid="baseColumn" />
+        from t_product_category
+        where id=#{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="addProductCategory" parameterType="com.spring.domain.model.ProductCategory" keyProperty="id" useGeneratedKeys="true">
+        insert into t_product_category(name,sort_order,create_time,update_time,status)
+        value(#{name,jdbcType=VARCHAR},#{sortOrder,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER,typeHandler=com.spring.domain.type.handler.ProductCategoryStatusTypeHandler})
+    </insert>
+</mapper>

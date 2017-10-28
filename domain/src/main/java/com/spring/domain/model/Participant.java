@@ -20,6 +20,7 @@ import java.time.OffsetDateTime;
 @EqualsAndHashCode
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Builder
 public class Participant implements Serializable {
 
     private static final long serialVersionUID = -8013238614014494468L;
