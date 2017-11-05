@@ -27,6 +27,12 @@
 			<artifactId>order-api</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.spring</groupId>
+			<artifactId>user-api</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
 		<!-- 监控 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -102,6 +108,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gitee.reger</groupId>
+			<artifactId>spring-boot-starter-dubbo</artifactId>
+			<version>1.0.7</version>
 		</dependency>
 	</dependencies>
 

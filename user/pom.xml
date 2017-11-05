@@ -103,7 +103,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>com.gitee.reger</groupId>
+			<artifactId>spring-boot-starter-dubbo</artifactId>
+			<version>1.0.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>
