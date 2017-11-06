@@ -3,6 +3,7 @@ package com.spring.domain.model;
 import com.spring.domain.type.TccStatus;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 
 /**
@@ -16,7 +17,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductStockTcc {
+public class ProductStockTcc implements Serializable{
     /**
      * 产品库存
      */

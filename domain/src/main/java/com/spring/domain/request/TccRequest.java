@@ -3,6 +3,7 @@ package com.spring.domain.request;
 import com.spring.common.model.request.RestfulRequest;
 
 import com.spring.domain.model.OrderParticipant;
+import com.spring.domain.model.Participant;
 import lombok.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,6 @@ public class TccRequest extends RestfulRequest {
     @NotNull
     @Size(min=1)
     @Valid
-    private List<OrderParticipant> participants;
+    private List<Participant> participants;
 
 }

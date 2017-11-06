@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>order</artifactId>
+	<artifactId>tcc</artifactId>
 	<packaging>jar</packaging>
 
-	<name>order</name>
-	<description>Demo project for Spring Boot</description>
+	<name>tcc</name>
+	<description>tcc project for Spring Boot</description>
 
 	<parent>
 		<groupId>com.spring</groupId>
@@ -24,44 +24,16 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.spring</groupId>
-			<artifactId>order-api</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.spring</groupId>
-			<artifactId>user-api</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.spring</groupId>
-			<artifactId>product-api</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.spring</groupId>
 			<artifactId>tcc-api</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
+
 		<!-- 监控 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<!--ali druid -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.0.20</version>
-		</dependency>
-		<!-- mysql-->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.39</version>
-		</dependency>
+
 		<!-- swagger-->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -72,11 +44,6 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.2.2</version>
-		</dependency>
-		<!-- mongodb-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 		<!-- logging -->
 		<dependency>
@@ -106,22 +73,6 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- redis -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		<!-- mybaits-->
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>com.gitee.reger</groupId>
 			<artifactId>spring-boot-starter-dubbo</artifactId>

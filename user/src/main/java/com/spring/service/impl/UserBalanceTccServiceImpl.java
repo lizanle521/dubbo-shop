@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.google.common.base.Preconditions;
 import com.spring.common.model.StatusCode;
 import com.spring.common.model.exception.GlobalException;
@@ -22,7 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

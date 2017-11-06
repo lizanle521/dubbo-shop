@@ -19,12 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class ProductStockCancellationEventListener implements ApplicationListener<ProductStockCancellationEvent> {
 
-    private final ProductStockTccService tccService;
 
     @Autowired
-    public ProductStockCancellationEventListener(ProductStockTccService tccService) {
-        this.tccService = tccService;
-    }
+    private  ProductStockTccService tccService;
+
 
     @Async
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = RuntimeException.class)

@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.spring.common.model.model.RedisKey;
 import com.spring.common.model.util.tools.BeanToMapUtil;
 import com.spring.domain.model.Product;
@@ -9,7 +10,6 @@ import com.spring.service.ProductService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +25,7 @@ import java.util.Objects;
  * @Date 2017/5/27.
  */
 @Service
+@org.springframework.stereotype.Service
 public class ProductServiceImpl implements ProductService {
 
     private static final Logger logger= Logger.getLogger(ProductServiceImpl.class);

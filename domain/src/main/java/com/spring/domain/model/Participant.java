@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.spring.common.model.util.converter.OffsetDateTimeToIso8601Serializer;
+import com.spring.domain.type.TccStatus;
 import lombok.*;
+import org.springframework.http.ResponseEntity;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
@@ -15,6 +17,7 @@ import java.time.OffsetDateTime;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
@@ -29,4 +32,18 @@ public class Participant implements Serializable {
 
     @JsonSerialize(using = OffsetDateTimeToIso8601Serializer.class)
     private OffsetDateTime expireTime;
+
+    @JsonSerialize(using = OffsetDateTimeToIso8601Serializer.class)
+    private OffsetDateTime executeTime;
+
+    private ResponseEntity<?> participantErrorResponse;
+
+    private TccStatus tccStatus = TccStatus.TO_BE_CONFIRMED;
+
+
+    public Participant(String uri,OffsetDateTime executeTime){
+        this.uri=uri;
+        this.executeTime=executeTime;
+    }
+
 }

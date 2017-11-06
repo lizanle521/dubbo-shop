@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spring.domain.type.TccStatus;
 import lombok.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
@@ -14,7 +15,7 @@ import java.time.OffsetDateTime;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
-public class UserBalanceTcc{
+public class UserBalanceTcc implements Serializable{
     private static final long serialVersionUID = 8291022579522014250L;
     private Integer id;
     /**
