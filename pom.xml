@@ -22,6 +22,8 @@
 		<module>integral</module>
 		<module>order-api</module>
 		<module>order</module>
+		<module>tcc-api</module>
+		<module>tcc</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

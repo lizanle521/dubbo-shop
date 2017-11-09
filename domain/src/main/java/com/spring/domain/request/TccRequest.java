@@ -21,11 +21,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class TccRequest extends RestfulRequest {
 
     @NotNull
     @Size(min=1)
     @Valid
     private List<Participant> participants;
+
+
+    private List<OrderParticipant> orderParticipants;
 
 }
